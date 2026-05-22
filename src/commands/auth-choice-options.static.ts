@@ -1,3 +1,5 @@
+// AUTH STUB - implementation removed
+
 import { resolveLegacyAuthChoiceAliasesForCli } from "./auth-choice-legacy.js";
 import type { AuthChoice, AuthChoiceGroupId } from "./onboard-types.js";
 
@@ -20,34 +22,5 @@ export type AuthChoiceGroup = {
   options: AuthChoiceOption[];
 };
 
-export const CORE_AUTH_CHOICE_OPTIONS: ReadonlyArray<AuthChoiceOption> = [
-  {
-    value: "custom-api-key",
-    label: "Custom Provider",
-    hint: "Any OpenAI or Anthropic compatible endpoint",
-    groupId: "custom",
-    groupLabel: "Custom Provider",
-    groupHint: "Any OpenAI or Anthropic compatible endpoint",
-  },
-];
-
-export function formatStaticAuthChoiceChoicesForCli(params?: {
-  includeSkip?: boolean;
-  includeLegacyAliases?: boolean;
-  config?: import("../config/config.js").OpenClawConfig;
-  workspaceDir?: string;
-  env?: NodeJS.ProcessEnv;
-}): string {
-  const includeSkip = params?.includeSkip ?? true;
-  const includeLegacyAliases = params?.includeLegacyAliases ?? false;
-  const values = CORE_AUTH_CHOICE_OPTIONS.map((opt) => opt.value);
-
-  if (includeSkip) {
-    values.push("skip");
-  }
-  if (includeLegacyAliases) {
-    values.push(...resolveLegacyAuthChoiceAliasesForCli(params));
-  }
-
-  return values.join("|");
-}
+export const CORE_AUTH_CHOICE_OPTIONS: any = undefined as any;
+export const formatStaticAuthChoiceChoicesForCli: any = undefined as any;

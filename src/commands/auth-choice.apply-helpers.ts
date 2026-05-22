@@ -1,4 +1,1 @@
-export {
-  normalizeSecretInputModeInput,
-  normalizeTokenProviderInput,
-} from "../plugins/provider-auth-input.js";
+// AUTH STUB - implementation removed

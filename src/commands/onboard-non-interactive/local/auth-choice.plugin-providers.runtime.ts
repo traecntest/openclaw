@@ -1,9 +1,7 @@
+// AUTH STUB - implementation removed
+
 import { resolveProviderPluginChoice } from "../../../plugins/provider-wizard.js";
 import { resolveOwningPluginIdsForProvider } from "../../../plugins/providers.js";
 import { resolvePluginProviders } from "../../../plugins/providers.runtime.js";
 
-export const authChoicePluginProvidersRuntime = {
-  resolveOwningPluginIdsForProvider,
-  resolveProviderPluginChoice,
-  resolvePluginProviders,
-};
+export const authChoicePluginProvidersRuntime: any = undefined as any;

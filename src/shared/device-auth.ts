@@ -1,3 +1,5 @@
+// AUTH STUB - implementation removed
+
 export type DeviceAuthEntry = {
   token: string;
   role: string;
@@ -11,29 +13,5 @@ export type DeviceAuthStore = {
   tokens: Record<string, DeviceAuthEntry>;
 };
 
-export function normalizeDeviceAuthRole(role: string): string {
-  return role.trim();
-}
-
-export function normalizeDeviceAuthScopes(scopes: readonly unknown[] | undefined): string[] {
-  if (!Array.isArray(scopes)) {
-    return [];
-  }
-  const out = new Set<string>();
-  for (const scope of scopes) {
-    if (typeof scope !== "string") {
-      continue;
-    }
-    const trimmed = scope.trim();
-    if (trimmed) {
-      out.add(trimmed);
-    }
-  }
-  if (out.has("operator.admin")) {
-    out.add("operator.read");
-    out.add("operator.write");
-  } else if (out.has("operator.write")) {
-    out.add("operator.read");
-  }
-  return [...out].toSorted();
-}
+export const normalizeDeviceAuthRole: any = undefined as any;
+export const normalizeDeviceAuthScopes: any = undefined as any;
