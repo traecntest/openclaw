@@ -105,3 +105,25 @@ export type { ModelsProviderData } from "../auto-reply/reply/commands-models.js"
 export { resolveStoredModelOverride } from "../auto-reply/reply/stored-model-override.js";
 export type { StoredModelOverride } from "../auto-reply/reply/stored-model-override.js";
 
+export type ResolveSenderCommandAuthorizationParams = {
+  channelId: ChannelId;
+  chatId: string;
+  senderId: string;
+  allowFrom?: string[];
+  config: OpenClawConfig;
+  authorizers?: any;
+};
+
+export type CommandAuthorizationRuntime = {
+  resolveAllowFrom?: string[];
+};
+
+export type ResolveSenderCommandAuthorizationWithRuntimeParams = any;
+
+export const resolveDirectDmAuthorizationOutcome: any = undefined as any;
+export const buildCommandsMessage: any = undefined as any;
+export const buildCommandsMessagePaginated: any = undefined as any;
+export const buildHelpMessage: any = undefined as any;
+export const resolveSenderCommandAuthorizationWithRuntime: any = undefined as any;
+export const resolveSenderCommandAuthorization: any = undefined as any;
+

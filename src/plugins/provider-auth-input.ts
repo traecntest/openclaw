@@ -27,3 +27,10 @@ export {
   type SecretInputModePromptCopy,
 } from "./provider-auth-mode.js";
 
+export const normalizeApiKeyInput: any = undefined as any;
+export const validateApiKeyInput: any = undefined as any;
+export const formatApiKeyPreview: any = undefined as any;
+export const normalizeTokenProviderInput: any = undefined as any;
+export const normalizeSecretInputModeInput: any = undefined as any;
+export const ensureApiKeyFromOptionEnvOrPrompt: any = undefined as any;
+export const ensureApiKeyFromEnvOrPrompt: any = undefined as any;

@@ -21,3 +21,12 @@ export {
 export type { ProviderPreparedRuntimeAuth } from "../plugins/types.js";
 export type { ResolvedProviderRuntimeAuth } from "../plugins/runtime/model-auth-types.js";
 
+export type OAuthCallbackResult = { code: string; state: string };
+
+export const buildOAuthCallbackOriginResolver: any = undefined as any;
+export const generateOAuthState: any = undefined as any;
+export const parseOAuthCallbackInput: any = undefined as any;
+export const waitForLocalOAuthCallback: any = undefined as any;
+export const resolveApiKeyForProvider: any = undefined as any;
+export const getRuntimeAuthForModel: any = undefined as any;
+

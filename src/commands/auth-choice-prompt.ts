@@ -7,6 +7,8 @@ import { buildAuthChoiceGroups, compareAuthChoiceGroups } from "./auth-choice-op
 import type { AuthChoiceGroup } from "./auth-choice-options.static.js";
 import type { AuthChoice } from "./onboard-types.js";
 
+const BACK_VALUE = "__back";
+
 type AuthChoiceOrBack = AuthChoice | typeof BACK_VALUE;
 
 export const promptAuthChoiceGrouped: any = undefined as any;

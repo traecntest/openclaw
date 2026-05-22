@@ -33,3 +33,36 @@ export {
   type ResolvedGatewayAuthModeSource,
 } from "./auth-resolve.js";
 
+export type GatewayAuthResult = {
+  ok: boolean;
+  method?:
+    | "none"
+    | "token"
+    | "password"
+    | "tailscale"
+    | "device-token"
+    | "bootstrap-token"
+    | "trusted-proxy";
+  user?: string;
+  reason?: string;
+  rateLimited?: boolean;
+  retryAfterMs?: number;
+};
+
+export type GatewayAuthSurface = "http" | "ws-control-ui";
+
+export type AuthorizeGatewayConnectParams = {
+  req?: IncomingMessage;
+  gatewayAuthConfig: GatewayAuthConfig;
+  trustedProxyConfig?: GatewayTrustedProxyConfig;
+  authRateLimiter?: AuthRateLimiter;
+  surface: GatewayAuthSurface;
+  source?: string;
+};
+
+export const hasForwardedRequestHeaders: any = undefined as any;
+export const isLocalDirectRequest: any = undefined as any;
+export const assertGatewayAuthConfigured: any = undefined as any;
+export const authorizeHttpGatewayConnect: any = undefined as any;
+export const authorizeWsControlUiGatewayConnect: any = undefined as any;
+export const readTailscaleWhoisIdentityFromRequest: any = undefined as any;

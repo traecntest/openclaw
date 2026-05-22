@@ -17,7 +17,26 @@ import type {
 } from "./plugin-entry.js";
 import { buildSingleProviderApiKeyCatalog } from "./provider-catalog-shared.js";
 
-type ApiKeyAuthMethodOptions = Parameters<typeof createProviderApiKeyAuthMethod>[0];
+type ApiKeyAuthMethodOptions = {
+  providerId: string;
+  methodId: string;
+  label: string;
+  hint?: string;
+  wizard?: ProviderPluginWizardSetup;
+  optionKey: string;
+  flagName: `--${string}`;
+  envVar: string;
+  promptMessage: string;
+  profileId?: string;
+  profileIds?: string[];
+  allowProfile?: boolean;
+  defaultModel?: string;
+  expectedProviders?: string[];
+  metadata?: Record<string, string>;
+  noteMessage?: string;
+  noteTitle?: string;
+  applyConfig?: (cfg: any) => any;
+};
 
 export type SingleProviderPluginApiKeyAuthOptions = Omit<
   ApiKeyAuthMethodOptions,

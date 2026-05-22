@@ -42,3 +42,4 @@ export type AuthProfileCredentialVisit =
   | OauthCredentialVisit;
 
 export const getAuthProfileFieldSpec: any = undefined as any;
+export const iterateAuthProfileCredentials: any = undefined as any;

@@ -19,7 +19,6 @@ import { toSafeImportPath } from "../shared/import-specifier.js";
 import { isRecord } from "../utils.js";
 import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
 import entry from "./index.js";
-import { getToolPluginMetadata } from "openclaw/plugin-sdk/tool-plugin";
 
 type JsonObject = Record<string, unknown>;
 export type PluginsBuildOptions = {
@@ -49,3 +48,4 @@ export const runPluginsBuildCommand: any = undefined as any;
 export const runPluginsInitCommand: any = undefined as any;
 export const runPluginsValidateCommand: any = undefined as any;
 export const validateToolPluginProject: any = undefined as any;
+

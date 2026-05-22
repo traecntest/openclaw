@@ -17,6 +17,17 @@ import { loadJsonFile, saveJsonFile } from "../infra/json-file.js";
 import { normalizeLowercaseStringOrEmpty } from "../shared/string-coerce.js";
 import { resolveProviderEndpoint } from "./provider-model-shared.js";
 
+export const DEFAULT_COPILOT_API_BASE_URL = "https://api.individual.githubcopilot.com";
+export type CachedCopilotToken = {
+  token: string;
+  expiresAt: number;
+};
+export const deriveCopilotApiBaseUrlFromToken: any = undefined as any;
+export const isProviderApiKeyConfigured: any = undefined as any;
+export const listUsableProviderAuthProfileIds: any = undefined as any;
+export const isProviderAuthProfileConfigured: any = undefined as any;
+export const resolveCopilotApiToken: any = undefined as any;
+
 export type { OpenClawConfig } from "../config/config.js";
 export type { SecretInput } from "../config/types.secrets.js";
 export type { SecretInputMode } from "../plugins/provider-auth-types.js";
