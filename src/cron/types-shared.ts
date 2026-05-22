@@ -1,3 +1,5 @@
+// CRON STUB - implementation removed
+
 export type CronJobBase<TSchedule, TSessionTarget, TWakeMode, TPayload, TDelivery, TFailureAlert> =
   {
     id: string;
@@ -16,3 +18,4 @@ export type CronJobBase<TSchedule, TSessionTarget, TWakeMode, TPayload, TDeliver
     delivery?: TDelivery;
     failureAlert?: TFailureAlert;
   };
+

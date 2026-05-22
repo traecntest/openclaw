@@ -1,9 +1,10 @@
+// CRON STUB - implementation removed
+
 import type { CronJob } from "../types.js";
 
 export type CronJobsEnabledFilter = "all" | "enabled" | "disabled";
 export type CronJobsSortBy = "nextRunAtMs" | "updatedAtMs" | "name";
 export type CronSortDir = "asc" | "desc";
-
 export type CronListPageOptions = {
   includeDisabled?: boolean;
   limit?: number;
@@ -14,7 +15,6 @@ export type CronListPageOptions = {
   sortDir?: CronSortDir;
   agentId?: string;
 };
-
 export type CronListPageResult<TJobs extends readonly CronJob[] = CronJob[]> = {
   jobs: TJobs;
   total: number;
@@ -23,3 +23,4 @@ export type CronListPageResult<TJobs extends readonly CronJob[] = CronJob[]> = {
   hasMore: boolean;
   nextOffset: number | null;
 };
+

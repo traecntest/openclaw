@@ -1,3 +1,5 @@
+// CRON STUB - implementation removed
+
 import type { CronListPageOptions, CronListPageResult } from "./service/list-page-types.js";
 import type {
   CronAddInput,
@@ -33,3 +35,4 @@ export interface CronServiceContract {
   getDefaultAgentId(): string | undefined;
   wake(opts: { mode: CronWakeMode; text: string; sessionKey?: string }): CronWakeResult;
 }
+

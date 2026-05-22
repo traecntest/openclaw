@@ -1,3 +1,5 @@
+// CRON STUB - implementation removed
+
 import type { CronConfig } from "../../config/types.cron.js";
 import type { HeartbeatRunResult, HeartbeatWakeRequest } from "../../infra/heartbeat-wake.js";
 import type { DeliveryContext } from "../../utils/delivery-context.types.js";
@@ -39,14 +41,12 @@ export type CronEvent = {
   runId?: string;
   nextRunAtMs?: number;
 } & CronRunTelemetry;
-
 export type Logger = {
   debug: (obj: unknown, msg?: string) => void;
   info: (obj: unknown, msg?: string) => void;
   warn: (obj: unknown, msg?: string) => void;
   error: (obj: unknown, msg?: string) => void;
 };
-
 export type CronServiceDeps = {
   nowMs?: () => number;
   log: Logger;
@@ -146,11 +146,9 @@ export type CronServiceDeps = {
   }) => Promise<void>;
   onEvent?: (evt: CronEvent) => void;
 };
-
 export type CronServiceDepsInternal = Omit<CronServiceDeps, "nowMs"> & {
   nowMs: () => number;
 };
-
 export type CronServiceState = {
   deps: CronServiceDepsInternal;
   store: CronStoreFile | null;
@@ -172,44 +170,22 @@ export type CronServiceState = {
   storeLoadedAtMs: number | null;
   storeFileMtimeMs: number | null;
 };
-
-export function createCronServiceState(deps: CronServiceDeps): CronServiceState {
-  return {
-    deps: { ...deps, nowMs: deps.nowMs ?? (() => Date.now()) },
-    store: null,
-    timer: null,
-    running: false,
-    op: Promise.resolve(),
-    warnedDisabled: false,
-    warnedMissingSessionTargetJobIds: new Set<string>(),
-    warnedInvalidPersistedJobKeys: new Set<string>(),
-    storeLoadedAtMs: null,
-    storeFileMtimeMs: null,
-  };
-}
-
 export type CronRunMode = "due" | "force";
 export type CronWakeMode = "now" | "next-heartbeat";
-
 export type CronStatusSummary = {
   enabled: boolean;
   storePath: string;
   jobs: number;
   nextWakeAtMs: number | null;
 };
-
 export type CronRunResult =
   | { ok: true; ran: true }
-  | { ok: true; enqueued: true; runId: string }
-  | { ok: true; ran: false; reason: "not-due" }
-  | { ok: true; ran: false; reason: "already-running" }
-  | { ok: false };
-
 export type CronRemoveResult = { ok: true; removed: boolean } | { ok: false; removed: false };
 
 export type CronAddResult = CronJob;
 export type CronUpdateResult = CronJob;
-
 export type CronListResult = CronJob[];
 export type CronAddInput = CronJobCreate;
 export type CronUpdateInput = CronJobPatch;
+
+export const createCronServiceState: any = undefined as any;

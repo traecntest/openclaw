@@ -1,3 +1,5 @@
+// CRON STUB - implementation removed
+
 import { afterEach, beforeEach } from "vitest";
 import { makeIsolatedAgentJobFixture, makeIsolatedAgentParamsFixture } from "./job-fixtures.js";
 import {
@@ -8,17 +10,6 @@ import {
   restoreFastTestEnv,
 } from "./run.test-harness.js";
 
-export function setupRunCronIsolatedAgentTurnSuite() {
-  let previousFastTestEnv: string | undefined;
-  beforeEach(() => {
-    previousFastTestEnv = clearFastTestEnv();
-    resetRunCronIsolatedAgentTurnHarness();
-    resolveCronSessionMock.mockReturnValue(makeCronSession());
-  });
-  afterEach(() => {
-    restoreFastTestEnv(previousFastTestEnv);
-  });
-}
-
-export const makeIsolatedAgentTurnJob = makeIsolatedAgentJobFixture;
-export const makeIsolatedAgentTurnParams = makeIsolatedAgentParamsFixture;
+export const setupRunCronIsolatedAgentTurnSuite: any = undefined as any;
+export const makeIsolatedAgentTurnJob: any = undefined as any;
+export const makeIsolatedAgentTurnParams: any = undefined as any;
