@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { createHash, randomBytes } from "node:crypto";
 

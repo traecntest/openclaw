@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 export type PreauthConnectionBudget = {
   acquire(clientIp: string | undefined): boolean;

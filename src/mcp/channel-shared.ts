@@ -1,11 +1,22 @@
-import { z } from "zod";
+// AUTH/MCP STUB - implementation removed
+
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString as toText,
 } from "../shared/string-coerce.js";
+import { z } from "zod";
 
+export type ApprovalDecision = "allow-once" | "allow-always" | "deny";
+export type ApprovalKind = "exec" | "plugin";
+export type ChatHistoryResult = {
+  messages?: Array<{ id?: string; role?: string; content?: unknown; [key: string]: unknown }>;
+};
 export type ClaudeChannelMode = "off" | "on" | "auto";
-
+export type ClaudePermissionRequest = {
+  toolName: string;
+  description: string;
+  inputPreview: string;
+};
 export type ConversationDescriptor = {
   sessionKey: string;
   channel: string;
@@ -18,7 +29,46 @@ export type ConversationDescriptor = {
   lastMessagePreview?: string;
   updatedAt?: number | null;
 };
-
+export type PendingApproval = {
+  kind: ApprovalKind;
+  id: string;
+  request?: Record<string, unknown>;
+  createdAtMs?: number;
+  expiresAtMs?: number;
+};
+export type QueueEvent =
+  | {
+      cursor: number;
+      type: "message";
+      sessionKey: string;
+      conversation?: ConversationDescriptor;
+      messageId?: string;
+      messageSeq?: number;
+      role?: string;
+      text?: string;
+      raw: SessionMessagePayload;
+    }
+export type SessionDescribeResult = {
+  session?: SessionRow | null;
+};
+export type SessionListResult = {
+  sessions?: SessionRow[];
+};
+export type SessionMessagePayload = {
+  sessionKey?: string;
+  messageId?: string;
+  messageSeq?: number;
+  message?: { role?: string; content?: unknown; [key: string]: unknown };
+  lastChannel?: string;
+  lastTo?: string;
+  lastAccountId?: string;
+  lastThreadId?: string | number;
+  [key: string]: unknown;
+};
+export type WaitFilter = {
+  afterCursor: number;
+  sessionKey?: string;
+};
 type SessionRow = {
   key: string;
   channel?: string;
@@ -43,93 +93,6 @@ type SessionRow = {
   lastMessagePreview?: string;
   updatedAt?: number | null;
 };
-
-export type SessionListResult = {
-  sessions?: SessionRow[];
-};
-
-export type SessionDescribeResult = {
-  session?: SessionRow | null;
-};
-
-export type ChatHistoryResult = {
-  messages?: Array<{ id?: string; role?: string; content?: unknown; [key: string]: unknown }>;
-};
-
-export type SessionMessagePayload = {
-  sessionKey?: string;
-  messageId?: string;
-  messageSeq?: number;
-  message?: { role?: string; content?: unknown; [key: string]: unknown };
-  lastChannel?: string;
-  lastTo?: string;
-  lastAccountId?: string;
-  lastThreadId?: string | number;
-  [key: string]: unknown;
-};
-
-export type ApprovalKind = "exec" | "plugin";
-export type ApprovalDecision = "allow-once" | "allow-always" | "deny";
-
-export type PendingApproval = {
-  kind: ApprovalKind;
-  id: string;
-  request?: Record<string, unknown>;
-  createdAtMs?: number;
-  expiresAtMs?: number;
-};
-
-export type QueueEvent =
-  | {
-      cursor: number;
-      type: "message";
-      sessionKey: string;
-      conversation?: ConversationDescriptor;
-      messageId?: string;
-      messageSeq?: number;
-      role?: string;
-      text?: string;
-      raw: SessionMessagePayload;
-    }
-  | {
-      cursor: number;
-      type: "claude_permission_request";
-      requestId: string;
-      toolName: string;
-      description: string;
-      inputPreview: string;
-    }
-  | {
-      cursor: number;
-      type: "exec_approval_requested" | "exec_approval_resolved";
-      raw: Record<string, unknown>;
-    }
-  | {
-      cursor: number;
-      type: "plugin_approval_requested" | "plugin_approval_resolved";
-      raw: Record<string, unknown>;
-    };
-
-export type ClaudePermissionRequest = {
-  toolName: string;
-  description: string;
-  inputPreview: string;
-};
-
-export type WaitFilter = {
-  afterCursor: number;
-  sessionKey?: string;
-};
-
-export const ClaudePermissionRequestSchema = z.object({
-  method: z.literal("notifications/claude/channel/permission_request"),
-  params: z.object({
-    request_id: z.string(),
-    tool_name: z.string(),
-    description: z.string(),
-    input_preview: z.string(),
-  }),
-});
 
 export { toText };
 
@@ -223,3 +186,13 @@ export function normalizeApprovalId(value: unknown): string | undefined {
   const id = toText(value);
   return id ? id.trim() : undefined;
 }
+
+
+export const ClaudePermissionRequestSchema: any = undefined as any;
+export const extractAttachmentsFromMessage: any = undefined as any;
+export const matchEventFilter: any = undefined as any;
+export const normalizeApprovalId: any = undefined as any;
+export const resolveMessageId: any = undefined as any;
+export const summarizeResult: any = undefined as any;
+export const summarizeStructuredResult: any = undefined as any;
+export const toConversation: any = undefined as any;

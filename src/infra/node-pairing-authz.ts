@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { NODE_SYSTEM_RUN_COMMANDS } from "./node-commands.js";
 

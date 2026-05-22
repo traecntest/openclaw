@@ -1,23 +1,23 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
-import { execFileSync, execSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import type { OAuthCredentials, OAuthProvider } from "./auth-profiles/types.js";
+import { createHash } from "node:crypto";
+import { createSubsystemLogger } from "../logging/subsystem.js";
+import { execFileSync, execSync } from "node:child_process";
 import { formatErrorMessage } from "../infra/errors.js";
 import { loadJsonFile, saveJsonFile } from "../infra/json-file.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveUserPath } from "../utils.js";
-import type { OAuthCredentials, OAuthProvider } from "./auth-profiles/types.js";
 
-export type ClaudeCliCredential = {
-  type: "oauth";
-  provider: "anthropic";
-  access: string;
-  refresh: string;
-  expires: number;
-};
-
+export type ClaudeCliCredential =
+  | {
+      type: "oauth";
+      provider: "anthropic";
+      access: string;
+      refresh: string;
+      expires: number;
+    }
 export type CodexCliCredential = {
   type: "oauth";
   provider: OAuthProvider;
@@ -27,15 +27,6 @@ export type CodexCliCredential = {
   accountId?: string;
   idToken?: string;
 };
-
-export type MiniMaxCliCredential = {
-  type: "oauth";
-  provider: "minimax-portal";
-  access: string;
-  refresh: string;
-  expires: number;
-};
-
 export type GeminiCliCredential = {
   type: "oauth";
   provider: "google-gemini-cli";
@@ -45,6 +36,29 @@ export type GeminiCliCredential = {
   accountId?: string;
   email?: string;
 };
+export type MiniMaxCliCredential = {
+  type: "oauth";
+  provider: "minimax-portal";
+  access: string;
+  refresh: string;
+  expires: number;
+};
+type CachedValue<T> = {
+  value: T | null;
+  readAt: number;
+  cacheKey: string;
+  sourceFingerprint?: number | string | null;
+};
+type ClaudeCliFileOptions = {
+  homeDir?: string;
+};
+type ClaudeCliWriteOptions = ClaudeCliFileOptions & {
+  platform?: NodeJS.Platform;
+  writeKeychain?: (credentials: OAuthCredentials) => boolean;
+  writeFile?: (credentials: OAuthCredentials, options?: ClaudeCliFileOptions) => boolean;
+};
+type ExecFileSyncFn = typeof execFileSync;
+type ExecSyncFn = typeof execSync;
 
 export const readClaudeCliCredentials: any = undefined as any;
 export const readClaudeCliCredentialsCached: any = undefined as any;

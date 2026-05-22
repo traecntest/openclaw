@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { resolveSafeTimeoutDelayMs } from "../utils/timer-delay.js";
 

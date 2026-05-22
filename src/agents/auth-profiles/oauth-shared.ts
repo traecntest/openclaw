@@ -1,8 +1,8 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
+import type { AuthProfileStore, OAuthCredential } from "./types.js";
 import { cloneAuthProfileStore } from "./clone.js";
 import { hasUsableOAuthCredential as hasUsableStoredOAuthCredential } from "./credential-state.js";
-import type { AuthProfileStore, OAuthCredential } from "./types.js";
 
 export type RuntimeExternalOAuthProfile = {
   profileId: string;

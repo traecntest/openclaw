@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { resolveGatewayReloadSettings } from "./config-reload-settings.js";
@@ -8,7 +8,6 @@ export type SharedGatewayAuthClient = {
   sharedGatewaySessionGeneration?: string;
   socket: { close: (code: number, reason: string) => void };
 };
-
 export type SharedGatewaySessionGenerationState = {
   current: string | undefined;
   required: string | undefined | null;

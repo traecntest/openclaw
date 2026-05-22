@@ -1,5 +1,6 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 export { applyAuthChoice } from "./auth-choice.apply.js";
-export { warnIfModelConfigLooksOff } from "./auth-choice.model-check.js";
 export { resolvePreferredProviderForAuthChoice } from "./auth-choice.preferred-provider.js";
+export { warnIfModelConfigLooksOff } from "./auth-choice.model-check.js";
+

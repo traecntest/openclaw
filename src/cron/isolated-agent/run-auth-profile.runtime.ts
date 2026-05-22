@@ -1,3 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 export { resolveSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.js";
+

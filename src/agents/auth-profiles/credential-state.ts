@@ -1,7 +1,7 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
-import { coerceSecretRef, normalizeSecretInputString } from "../../config/types.secrets.js";
 import type { AuthProfileCredential, OAuthCredential } from "./types.js";
+import { coerceSecretRef, normalizeSecretInputString } from "../../config/types.secrets.js";
 
 export type AuthCredentialReasonCode =
   | "ok"
@@ -9,7 +9,6 @@ export type AuthCredentialReasonCode =
   | "invalid_expires"
   | "expired"
   | "unresolved_ref";
-
 export type TokenExpiryState = "missing" | "valid" | "expiring" | "expired" | "invalid_expires";
 
 export const DEFAULT_OAUTH_REFRESH_MARGIN_MS: any = undefined as any;

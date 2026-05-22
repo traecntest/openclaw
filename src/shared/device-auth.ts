@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 export type DeviceAuthEntry = {
   token: string;
@@ -6,7 +6,6 @@ export type DeviceAuthEntry = {
   scopes: string[];
   updatedAtMs: number;
 };
-
 export type DeviceAuthStore = {
   version: 1;
   deviceId: string;

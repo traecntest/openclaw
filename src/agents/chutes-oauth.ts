@@ -1,7 +1,7 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
-import { createHash, randomBytes } from "node:crypto";
 import type { OAuthCredentials } from "@earendil-works/pi-ai";
+import { createHash, randomBytes } from "node:crypto";
 import { normalizeOptionalString } from "../shared/string-coerce.js";
 
 export type ChutesOAuthAppConfig = {
@@ -9,6 +9,16 @@ export type ChutesOAuthAppConfig = {
   clientSecret?: string;
   redirectUri: string;
   scopes: string[];
+};
+type ChutesPkce = { verifier: string; challenge: string };
+
+type ChutesUserInfo = {
+  sub?: string;
+  username?: string;
+  created_at?: string;
+};
+type ChutesStoredOAuth = OAuthCredentials & {
+  clientId?: string;
 };
 
 export const CHUTES_AUTHORIZE_ENDPOINT: any = undefined as any;

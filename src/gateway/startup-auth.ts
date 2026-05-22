@@ -1,22 +1,22 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import crypto from "node:crypto";
 import type { GatewayAuthConfig, GatewayTailscaleConfig } from "../config/types.gateway.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
-import { normalizeOptionalString } from "../shared/string-coerce.js";
 import {
   hasConfiguredGatewayAuthSecretInput,
   resolveGatewayPasswordSecretRefValue,
   resolveGatewayTokenSecretRefValue,
 } from "./auth-config-utils.js";
-import { assertExplicitGatewayAuthModeWhenBothConfigured } from "./auth-mode-policy.js";
-import { resolveGatewayAuth, type ResolvedGatewayAuth } from "./auth.js";
 import {
   hasGatewayPasswordEnvCandidate,
   hasGatewayTokenEnvCandidate,
   trimToUndefined,
 } from "./credentials.js";
+import { assertExplicitGatewayAuthModeWhenBothConfigured } from "./auth-mode-policy.js";
 import { assertGatewayAuthNotKnownWeak } from "./known-weak-gateway-secrets.js";
+import { normalizeOptionalString } from "../shared/string-coerce.js";
+import { resolveGatewayAuth, type ResolvedGatewayAuth } from "./auth.js";
 
 export { assertGatewayAuthNotKnownWeak } from "./known-weak-gateway-secrets.js";
 

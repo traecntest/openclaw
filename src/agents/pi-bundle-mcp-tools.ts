@@ -1,3 +1,5 @@
+// AUTH/MCP STUB - implementation removed
+
 export type {
   BundleMcpToolRuntime,
   McpCatalogTool,
@@ -6,6 +8,10 @@ export type {
   SessionMcpRuntime,
   SessionMcpRuntimeManager,
 } from "./pi-bundle-mcp-types.js";
+export {
+  createBundleMcpToolRuntime,
+  materializeBundleMcpToolsForRun,
+} from "./pi-bundle-mcp-materialize.js";
 export {
   testing,
   testing as __testing,
@@ -17,7 +23,4 @@ export {
   retireSessionMcpRuntime,
   retireSessionMcpRuntimeForSessionKey,
 } from "./pi-bundle-mcp-runtime.js";
-export {
-  createBundleMcpToolRuntime,
-  materializeBundleMcpToolsForRun,
-} from "./pi-bundle-mcp-materialize.js";
+

@@ -1,28 +1,6 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { isLoopbackAddress, resolveClientIp } from "./net.js";
-
-export interface RateLimitConfig {
-  /** Maximum failed attempts before blocking.  @default 10 */
-  maxAttempts?: number;
-  /** Sliding window duration in milliseconds.     @default 60_000 (1 min) */
-  windowMs?: number;
-  /** Lockout duration in milliseconds after the limit is exceeded.  @default 300_000 (5 min) */
-  lockoutMs?: number;
-  /** Exempt loopback (localhost) addresses from rate limiting.  @default true */
-  exemptLoopback?: boolean;
-  /** Background prune interval in milliseconds; set <= 0 to disable auto-prune.  @default 60_000 */
-  pruneIntervalMs?: number;
-}
-
-export interface RateLimitCheckResult {
-  /** Whether the request is allowed to proceed. */
-  allowed: boolean;
-  /** Number of remaining attempts before the limit is reached. */
-  remaining: number;
-  /** Milliseconds until the lockout expires (0 when not locked). */
-  retryAfterMs: number;
-}
 
 export interface AuthRateLimiter {
   /** Check whether `ip` is currently allowed to attempt authentication. */
@@ -38,10 +16,37 @@ export interface AuthRateLimiter {
   /** Dispose the limiter and cancel periodic cleanup timers. */
   dispose(): void;
 }
+export interface RateLimitCheckResult {
+  /** Whether the request is allowed to proceed. */
+  allowed: boolean;
+  /** Number of remaining attempts before the limit is reached. */
+  remaining: number;
+  /** Milliseconds until the lockout expires (0 when not locked). */
+  retryAfterMs: number;
+}
+export interface RateLimitConfig {
+  /** Maximum failed attempts before blocking.  @default 10 */
+  maxAttempts?: number;
+  /** Sliding window duration in milliseconds.     @default 60_000 (1 min) */
+  windowMs?: number;
+  /** Lockout duration in milliseconds after the limit is exceeded.  @default 300_000 (5 min) */
+  lockoutMs?: number;
+  /** Exempt loopback (localhost) addresses from rate limiting.  @default true */
+  exemptLoopback?: boolean;
+  /** Background prune interval in milliseconds; set <= 0 to disable auto-prune.  @default 60_000 */
+  pruneIntervalMs?: number;
+}
+interface RateLimitEntry {
+  /** Timestamps (epoch ms) of recent failed attempts inside the window. */
+  attempts: number[];
+  /** If set, requests from this IP are blocked until this epoch-ms instant. */
+  lockedUntil?: number;
+}
 
-export const AUTH_RATE_LIMIT_SCOPE_DEFAULT: any = undefined as any;
-export const AUTH_RATE_LIMIT_SCOPE_DEVICE_TOKEN: any = undefined as any;
-export const AUTH_RATE_LIMIT_SCOPE_HOOK_AUTH: any = undefined as any;
-export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET: any = undefined as any;
+export const AUTH_RATE_LIMIT_SCOPE_DEFAULT = "default";
+export const AUTH_RATE_LIMIT_SCOPE_DEVICE_TOKEN = "device-token";
+export const AUTH_RATE_LIMIT_SCOPE_HOOK_AUTH = "hook-auth";
+export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET = "shared-secret";
+
 export const createAuthRateLimiter: any = undefined as any;
 export const normalizeRateLimitClientIp: any = undefined as any;

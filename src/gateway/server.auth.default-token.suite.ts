@@ -1,7 +1,5 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
-import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
-import { WebSocket } from "ws";
 import {
   connectReq,
   ConnectErrorDetailCodes,
@@ -26,5 +24,7 @@ import {
   withGatewayServer,
   withRuntimeVersionEnv,
 } from "./server.auth.shared.js";
+import { WebSocket } from "ws";
+import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
 
 export const registerDefaultAuthTokenSuite: any = undefined as any;

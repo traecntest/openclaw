@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import type { PluginRegistry } from "../../../plugins/registry.js";
 import {

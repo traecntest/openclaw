@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
-import type { BundleMcpDiagnostic } from "../plugins/bundle-mcp.js";
+// AUTH/MCP STUB - implementation removed
 
-export type CodexMcpServersConfig = Record<string, Record<string, unknown>>;
+import type { BundleMcpDiagnostic } from "../plugins/bundle-mcp.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 
 export type CodexBundleMcpThreadConfig = {
   configPatch?: {
@@ -11,7 +11,7 @@ export type CodexBundleMcpThreadConfig = {
   evaluated: boolean;
   fingerprint?: string;
 };
-
+export type CodexMcpServersConfig = Record<string, Record<string, unknown>>;
 export type LoadCodexBundleMcpThreadConfigParams = {
   workspaceDir: string;
   cfg?: OpenClawConfig;
@@ -19,3 +19,4 @@ export type LoadCodexBundleMcpThreadConfigParams = {
   disableTools?: boolean;
   toolsAllow?: string[];
 };
+

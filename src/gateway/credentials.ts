@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import {
@@ -12,14 +12,20 @@ export type ExplicitGatewayAuth = {
   token?: string;
   password?: string;
 };
-
 export type GatewayCredentialMode = "local" | "remote";
-
 export type GatewayCredentialPrecedence = "env-first" | "config-first";
-
-export type GatewayRemoteCredentialPrecedence = "remote-first" | "env-first";
-
 export type GatewayRemoteCredentialFallback = "remote-env-local" | "remote-only";
+export type GatewayRemoteCredentialPrecedence = "remote-first" | "env-first";
+type ResolvedGatewayCredentials = {
+  token?: string;
+  password?: string;
+};
+
+export {
+  hasGatewayPasswordEnvCandidate,
+  hasGatewayTokenEnvCandidate,
+  trimToUndefined,
+} from "./credential-planner.js";
 
 export const GatewaySecretRefUnavailableError: any = undefined as any;
 export const isGatewaySecretRefUnavailableError: any = undefined as any;

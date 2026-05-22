@@ -1,8 +1,8 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import type { OpenClawConfig } from "../config/types.openclaw.js";
-import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
 import { normalizeOptionalString } from "../shared/string-coerce.js";
+import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
 
 export type GatewayAuthTokenSourceConflict = {
   checkId: "gateway.env_token_overrides_config";

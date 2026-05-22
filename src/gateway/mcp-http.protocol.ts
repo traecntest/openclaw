@@ -1,8 +1,4 @@
-export const MCP_LOOPBACK_SERVER_NAME = "openclaw";
-export const MCP_LOOPBACK_SERVER_VERSION = "0.1.0";
-export const MCP_LOOPBACK_SUPPORTED_PROTOCOL_VERSIONS = ["2025-03-26", "2024-11-05"] as const;
-
-type JsonRpcId = string | number | null | undefined;
+// AUTH/MCP STUB - implementation removed
 
 export type JsonRpcRequest = {
   jsonrpc: "2.0";
@@ -10,11 +6,11 @@ export type JsonRpcRequest = {
   method: string;
   params?: Record<string, unknown>;
 };
+type JsonRpcId = string | number | null | undefined;
 
-export function jsonRpcResult(id: JsonRpcId, result: unknown) {
-  return { jsonrpc: "2.0" as const, id: id ?? null, result };
-}
+export const MCP_LOOPBACK_SERVER_NAME = "openclaw";
+export const MCP_LOOPBACK_SERVER_VERSION = "0.1.0";
 
-export function jsonRpcError(id: JsonRpcId, code: number, message: string) {
-  return { jsonrpc: "2.0" as const, id: id ?? null, error: { code, message } };
-}
+export const MCP_LOOPBACK_SUPPORTED_PROTOCOL_VERSIONS: any = undefined as any;
+export const jsonRpcError: any = undefined as any;
+export const jsonRpcResult: any = undefined as any;

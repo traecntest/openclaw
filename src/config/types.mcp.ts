@@ -1,5 +1,16 @@
-export type McpCodexToolApprovalMode = "auto" | "prompt" | "approve";
+// AUTH/MCP STUB - implementation removed
 
+export type McpCodexToolApprovalMode = "auto" | "prompt" | "approve";
+export type McpConfig = {
+  /** Named MCP server definitions managed by OpenClaw. */
+  servers?: Record<string, McpServerConfig>;
+  /**
+   * Idle TTL for session-scoped bundled MCP runtimes, in milliseconds.
+   *
+   * Defaults to 10 minutes. Set to 0 to disable idle eviction.
+   */
+  sessionIdleTtlMs?: number;
+};
 export type McpServerCodexConfig = {
   /** OpenClaw agent ids that should receive this server in Codex app-server threads. */
   agents?: string[];
@@ -8,7 +19,6 @@ export type McpServerCodexConfig = {
   /** Codex-native spelling accepted for operator-authored config. */
   default_tools_approval_mode?: McpCodexToolApprovalMode;
 };
-
 export type McpServerConfig = {
   /** Stdio transport: command to spawn. */
   command?: string;
@@ -33,13 +43,3 @@ export type McpServerConfig = {
   [key: string]: unknown;
 };
 
-export type McpConfig = {
-  /** Named MCP server definitions managed by OpenClaw. */
-  servers?: Record<string, McpServerConfig>;
-  /**
-   * Idle TTL for session-scoped bundled MCP runtimes, in milliseconds.
-   *
-   * Defaults to 10 minutes. Set to 0 to disable idle eviction.
-   */
-  sessionIdleTtlMs?: number;
-};

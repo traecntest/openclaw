@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import {
   type DeviceAuthEntry,
@@ -11,6 +11,8 @@ export type DeviceAuthStoreAdapter = {
   readStore: () => DeviceAuthStore | null;
   writeStore: (store: DeviceAuthStore) => void;
 };
+
+export type { DeviceAuthEntry, DeviceAuthStore } from "./device-auth.js";
 
 export const clearDeviceAuthTokenFromStore: any = undefined as any;
 export const loadDeviceAuthTokenFromStore: any = undefined as any;

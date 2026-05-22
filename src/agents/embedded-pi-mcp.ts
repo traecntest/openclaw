@@ -1,5 +1,7 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+// AUTH/MCP STUB - implementation removed
+
 import type { BundleMcpDiagnostic, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { loadMergedBundleMcpConfig } from "./bundle-mcp-config.js";
 
 type EmbeddedPiMcpConfig = {
@@ -7,17 +9,4 @@ type EmbeddedPiMcpConfig = {
   diagnostics: BundleMcpDiagnostic[];
 };
 
-export function loadEmbeddedPiMcpConfig(params: {
-  workspaceDir: string;
-  cfg?: OpenClawConfig;
-}): EmbeddedPiMcpConfig {
-  const bundleMcp = loadMergedBundleMcpConfig({
-    workspaceDir: params.workspaceDir,
-    cfg: params.cfg,
-  });
-
-  return {
-    mcpServers: bundleMcp.config.mcpServers,
-    diagnostics: bundleMcp.diagnostics,
-  };
-}
+export const loadEmbeddedPiMcpConfig: any = undefined as any;

@@ -1,16 +1,12 @@
-import type { ResolvedProviderAuth } from "../../agents/model-auth-runtime-shared.js";
-import type { ModelProviderRequestTransportOverrides } from "../../agents/provider-request-config.js";
+// AUTH/MCP STUB - implementation removed
 
-/**
- * Runtime-ready auth result exposed to native plugins and context engines.
- *
- * `source`, `mode`, and `profileId` describe how the original credential was
- * resolved. `apiKey` is the request-ready credential after any provider-owned
- * runtime exchange, so it may differ from the stored/raw credential.
- */
+import type { ModelProviderRequestTransportOverrides } from "../../agents/provider-request-config.js";
+import type { ResolvedProviderAuth } from "../../agents/model-auth-runtime-shared.js";
+
 export type ResolvedProviderRuntimeAuth = Omit<ResolvedProviderAuth, "apiKey"> & {
   apiKey?: string;
   baseUrl?: string;
   request?: ModelProviderRequestTransportOverrides;
   expiresAt?: number;
 };
+

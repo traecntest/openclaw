@@ -1,8 +1,8 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { formatCliCommand } from "../../cli/command-format.js";
-import { sanitizeForLog } from "../../terminal/ansi.js";
 import { normalizeProviderId } from "../provider-id.js";
+import { sanitizeForLog } from "../../terminal/ansi.js";
 
 export type OAuthRefreshFailureReason =
   | "refresh_token_reused"

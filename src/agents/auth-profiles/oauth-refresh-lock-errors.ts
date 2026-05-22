@@ -1,4 +1,4 @@
-// AUTH STUB - implementation removed
+// AUTH/MCP STUB - implementation removed
 
 import { FILE_LOCK_TIMEOUT_ERROR_CODE } from "../../infra/file-lock.js";
 
