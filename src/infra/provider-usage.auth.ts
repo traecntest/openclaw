@@ -1,7 +1,5 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
-import type { UsageProviderId } from "./provider-usage.types.js";
 import {
   dedupeProfileIds,
   ensureAuthProfileStore,
@@ -11,21 +9,23 @@ import {
   resolveApiKeyForProfile,
   resolveAuthProfileOrder,
 } from "../agents/auth-profiles.js";
+import { resolveEnvApiKey } from "../agents/model-auth-env.js";
+import { isNonSecretApiKeyMarker } from "../agents/model-auth-markers.js";
+import { resolveUsableCustomProviderApiKey } from "../agents/model-auth.js";
+import { normalizeProviderId } from "../agents/model-selection.js";
+import { getRuntimeConfig, type OpenClawConfig } from "../config/config.js";
+import { normalizePluginsConfig } from "../plugins/config-state.js";
+import { loadManifestMetadataSnapshot } from "../plugins/manifest-contract-eligibility.js";
 import {
   isActivatedManifestOwner,
   passesManifestOwnerBasePolicy,
 } from "../plugins/manifest-owner-policy.js";
-import { getRuntimeConfig, type OpenClawConfig } from "../config/config.js";
-import { isNonSecretApiKeyMarker } from "../agents/model-auth-markers.js";
-import { loadManifestMetadataSnapshot } from "../plugins/manifest-contract-eligibility.js";
-import { normalizePluginsConfig } from "../plugins/config-state.js";
-import { normalizeProviderId } from "../agents/model-selection.js";
-import { normalizeSecretInput } from "../utils/normalize-secret-input.js";
-import { resolveEnvApiKey } from "../agents/model-auth-env.js";
-import { resolveLegacyPiAgentAccessToken } from "./provider-usage.shared.js";
-import { resolveProviderAuthEnvVarCandidates } from "../secrets/provider-env-vars.js";
+import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { resolveProviderUsageAuthWithPlugin } from "../plugins/provider-runtime.js";
-import { resolveUsableCustomProviderApiKey } from "../agents/model-auth.js";
+import { resolveProviderAuthEnvVarCandidates } from "../secrets/provider-env-vars.js";
+import { normalizeSecretInput } from "../utils/normalize-secret-input.js";
+import { resolveLegacyPiAgentAccessToken } from "./provider-usage.shared.js";
+import type { UsageProviderId } from "./provider-usage.types.js";
 
 export type ProviderAuth = {
   provider: UsageProviderId;

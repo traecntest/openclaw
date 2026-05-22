@@ -3,73 +3,7 @@
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { SecretRef } from "../../config/types.secrets.js";
 
-export type ApiKeyCredential = {
-  type: "api_key";
-  provider: string;
-  key?: string;
-  keyRef?: SecretRef;
-  /** Explicit opt-out for copying this profile when creating another agent. */
-  copyToAgents?: boolean;
-  email?: string;
-  displayName?: string;
-  /** Optional provider-specific metadata (e.g., account IDs, gateway IDs). */
-  metadata?: Record<string, string>;
-};
-export type AuthProfileBlockedReason = "subscription_limit";
-export type AuthProfileBlockedSource = "codex_rate_limits" | "wham";
-export type AuthProfileCredential = ApiKeyCredential | TokenCredential | OAuthCredential;
-export type AuthProfileFailureReason =
-  | "auth"
-  | "auth_permanent"
-  | "format"
-  | "overloaded"
-  | "rate_limit"
-  | "billing"
-  | "timeout"
-  | "model_not_found"
-  | "session_expired"
-  | "empty_response"
-  | "no_error_details"
-  | "unclassified"
-  | "unknown";
-export type AuthProfileIdRepairResult = {
-  config: OpenClawConfig;
-  changes: string[];
-  migrated: boolean;
-  fromProfileId?: string;
-  toProfileId?: string;
-};
-export type AuthProfileSecretsStore = {
-  version: number;
-  profiles: Record<string, AuthProfileCredential>;
-};
-export type AuthProfileState = {
-  /**
-   * Optional per-agent preferred profile order overrides.
-   * This lets you lock/override auth rotation for a specific agent without
-   * changing the global config.
-   */
-  order?: Record<string, string[]>;
-  lastGood?: Record<string, string>;
-  /** Usage statistics per profile for round-robin rotation */
-  usageStats?: Record<string, ProfileUsageStats>;
-};
-export type AuthProfileStateStore = {
-  version: number;
-} & AuthProfileState;
-export type AuthProfileStore = AuthProfileSecretsStore & AuthProfileState;
-export type OAuthCredential = OAuthCredentials & {
-  type: "oauth";
-  provider: string;
-  clientId?: string;
-  /**
-   * OAuth refresh tokens are not portable by default. Provider-owned flows may
-   * set this only when copying refresh material across agents is known safe.
-   */
-  copyToAgents?: boolean;
-  email?: string;
-  displayName?: string;
-};
+export type OAuthProvider = string;
 export type OAuthCredentials = {
   access: string;
   refresh: string;
@@ -82,21 +16,17 @@ export type OAuthCredentials = {
   chatgptPlanType?: string;
   idToken?: string;
 };
-export type OAuthProvider = string;
-export type ProfileUsageStats = {
-  lastUsed?: number;
-  blockedUntil?: number;
-  blockedReason?: AuthProfileBlockedReason;
-  blockedSource?: AuthProfileBlockedSource;
-  blockedModel?: string;
-  cooldownUntil?: number;
-  cooldownReason?: AuthProfileFailureReason;
-  cooldownModel?: string;
-  disabledUntil?: number;
-  disabledReason?: AuthProfileFailureReason;
-  errorCount?: number;
-  failureCounts?: Partial<Record<AuthProfileFailureReason, number>>;
-  lastFailureAt?: number;
+export type ApiKeyCredential = {
+  type: "api_key";
+  provider: string;
+  key?: string;
+  keyRef?: SecretRef;
+  /** Explicit opt-out for copying this profile when creating another agent. */
+  copyToAgents?: boolean;
+  email?: string;
+  displayName?: string;
+  /** Optional provider-specific metadata (e.g., account IDs, gateway IDs). */
+  metadata?: Record<string, string>;
 };
 export type TokenCredential = {
   /**
@@ -113,5 +43,75 @@ export type TokenCredential = {
   expires?: number;
   email?: string;
   displayName?: string;
+};
+export type OAuthCredential = OAuthCredentials & {
+  type: "oauth";
+  provider: string;
+  clientId?: string;
+  /**
+   * OAuth refresh tokens are not portable by default. Provider-owned flows may
+   * set this only when copying refresh material across agents is known safe.
+   */
+  copyToAgents?: boolean;
+  email?: string;
+  displayName?: string;
+};
+export type AuthProfileCredential = ApiKeyCredential | TokenCredential | OAuthCredential;
+export type AuthProfileFailureReason =
+  | "auth"
+  | "auth_permanent"
+  | "format"
+  | "overloaded"
+  | "rate_limit"
+  | "billing"
+  | "timeout"
+  | "model_not_found"
+  | "session_expired"
+  | "empty_response"
+  | "no_error_details"
+  | "unclassified"
+  | "unknown";
+export type AuthProfileBlockedReason = "subscription_limit";
+export type AuthProfileBlockedSource = "codex_rate_limits" | "wham";
+export type ProfileUsageStats = {
+  lastUsed?: number;
+  blockedUntil?: number;
+  blockedReason?: AuthProfileBlockedReason;
+  blockedSource?: AuthProfileBlockedSource;
+  blockedModel?: string;
+  cooldownUntil?: number;
+  cooldownReason?: AuthProfileFailureReason;
+  cooldownModel?: string;
+  disabledUntil?: number;
+  disabledReason?: AuthProfileFailureReason;
+  errorCount?: number;
+  failureCounts?: Partial<Record<AuthProfileFailureReason, number>>;
+  lastFailureAt?: number;
+};
+export type AuthProfileState = {
+  /**
+   * Optional per-agent preferred profile order overrides.
+   * This lets you lock/override auth rotation for a specific agent without
+   * changing the global config.
+   */
+  order?: Record<string, string[]>;
+  lastGood?: Record<string, string>;
+  /** Usage statistics per profile for round-robin rotation */
+  usageStats?: Record<string, ProfileUsageStats>;
+};
+export type AuthProfileSecretsStore = {
+  version: number;
+  profiles: Record<string, AuthProfileCredential>;
+};
+export type AuthProfileStateStore = {
+  version: number;
+} & AuthProfileState;
+export type AuthProfileStore = AuthProfileSecretsStore & AuthProfileState;
+export type AuthProfileIdRepairResult = {
+  config: OpenClawConfig;
+  changes: string[];
+  migrated: boolean;
+  fromProfileId?: string;
+  toProfileId?: string;
 };
 

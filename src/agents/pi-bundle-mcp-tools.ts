@@ -9,10 +9,6 @@ export type {
   SessionMcpRuntimeManager,
 } from "./pi-bundle-mcp-types.js";
 export {
-  createBundleMcpToolRuntime,
-  materializeBundleMcpToolsForRun,
-} from "./pi-bundle-mcp-materialize.js";
-export {
   testing,
   testing as __testing,
   createSessionMcpRuntime,
@@ -23,4 +19,8 @@ export {
   retireSessionMcpRuntime,
   retireSessionMcpRuntimeForSessionKey,
 } from "./pi-bundle-mcp-runtime.js";
+export {
+  createBundleMcpToolRuntime,
+  materializeBundleMcpToolsForRun,
+} from "./pi-bundle-mcp-materialize.js";
 

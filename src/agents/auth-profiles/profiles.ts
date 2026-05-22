@@ -1,16 +1,16 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { AuthProfileCredential, AuthProfileStore, ProfileUsageStats } from "./types.js";
+import { normalizeStringEntries } from "../../shared/string-normalization.js";
+import { normalizeSecretInput } from "../../utils/normalize-secret-input.js";
+import { resolveProviderIdForAuth } from "../provider-auth-aliases.js";
+import { findNormalizedProviderKey, normalizeProviderId } from "../provider-id.js";
+import { dedupeProfileIds, listProfilesForProvider } from "./profile-list.js";
 import {
   ensureAuthProfileStoreForLocalUpdate,
   saveAuthProfileStore,
   updateAuthProfileStoreWithLock,
 } from "./store.js";
-import { dedupeProfileIds, listProfilesForProvider } from "./profile-list.js";
-import { findNormalizedProviderKey, normalizeProviderId } from "../provider-id.js";
-import { normalizeSecretInput } from "../../utils/normalize-secret-input.js";
-import { normalizeStringEntries } from "../../shared/string-normalization.js";
-import { resolveProviderIdForAuth } from "../provider-auth-aliases.js";
+import type { AuthProfileCredential, AuthProfileStore, ProfileUsageStats } from "./types.js";
 
 export { dedupeProfileIds, listProfilesForProvider } from "./profile-list.js";
 

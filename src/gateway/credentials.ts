@@ -12,14 +12,14 @@ export type ExplicitGatewayAuth = {
   token?: string;
   password?: string;
 };
-export type GatewayCredentialMode = "local" | "remote";
-export type GatewayCredentialPrecedence = "env-first" | "config-first";
-export type GatewayRemoteCredentialFallback = "remote-env-local" | "remote-only";
-export type GatewayRemoteCredentialPrecedence = "remote-first" | "env-first";
 type ResolvedGatewayCredentials = {
   token?: string;
   password?: string;
 };
+export type GatewayCredentialMode = "local" | "remote";
+export type GatewayCredentialPrecedence = "env-first" | "config-first";
+export type GatewayRemoteCredentialPrecedence = "remote-first" | "env-first";
+export type GatewayRemoteCredentialFallback = "remote-env-local" | "remote-only";
 
 export {
   hasGatewayPasswordEnvCandidate,

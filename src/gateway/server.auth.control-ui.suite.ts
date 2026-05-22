@@ -2,6 +2,8 @@
 
 import os from "node:os";
 import path from "node:path";
+import { expect, test, vi } from "vitest";
+import { WebSocket } from "ws";
 import {
   BACKEND_GATEWAY_CLIENT,
   connectReq,
@@ -30,7 +32,5 @@ import {
   withGatewayServer,
   writeTrustedProxyControlUiConfig,
 } from "./server.auth.shared.js";
-import { WebSocket } from "ws";
-import { expect, test, vi } from "vitest";
 
 export const registerControlUiAndPairingSuite: any = undefined as any;

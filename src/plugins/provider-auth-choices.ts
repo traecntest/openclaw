@@ -1,12 +1,12 @@
 // AUTH/MCP STUB - implementation removed
 
+import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
+import { sanitizeForLog } from "../terminal/ansi.js";
+import { normalizePluginsConfig, resolveEffectiveEnableState } from "./config-state.js";
+import { loadManifestMetadataSnapshot } from "./manifest-contract-eligibility.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 import type { PluginOrigin } from "./plugin-origin.types.js";
-import { loadManifestMetadataSnapshot } from "./manifest-contract-eligibility.js";
-import { normalizePluginsConfig, resolveEffectiveEnableState } from "./config-state.js";
-import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
-import { sanitizeForLog } from "../terminal/ansi.js";
 
 export type ProviderAuthChoiceMetadata = {
   pluginId: string;
@@ -35,12 +35,6 @@ export type ProviderOnboardAuthFlag = {
   cliOption: string;
   description: string;
 };
-type ManifestProviderAuthChoiceParams = {
-  config?: OpenClawConfig;
-  workspaceDir?: string;
-  env?: NodeJS.ProcessEnv;
-  includeUntrustedWorkspacePlugins?: boolean;
-};
 type ProviderAuthChoiceCandidate = ProviderAuthChoiceMetadata & {
   origin: PluginOrigin;
 };
@@ -48,6 +42,12 @@ type ProviderOnboardAuthFlagCandidate = ProviderAuthChoiceCandidate & {
   optionKey: string;
   cliFlag: string;
   cliOption: string;
+};
+type ManifestProviderAuthChoiceParams = {
+  config?: OpenClawConfig;
+  workspaceDir?: string;
+  env?: NodeJS.ProcessEnv;
+  includeUntrustedWorkspacePlugins?: boolean;
 };
 
 export const resolveManifestDeprecatedProviderAuthChoice: any = undefined as any;

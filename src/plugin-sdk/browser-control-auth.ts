@@ -7,13 +7,6 @@ export type BrowserControlAuth = {
   token?: string;
   password?: string;
 };
-type BrowserControlAuthSurface = {
-  resolveBrowserControlAuth: (cfg?: OpenClawConfig, env?: NodeJS.ProcessEnv) => BrowserControlAuth;
-  shouldAutoGenerateBrowserAuth: (env: NodeJS.ProcessEnv) => boolean;
-  ensureBrowserControlAuth: (
-    params: EnsureBrowserControlAuthParams,
-  ) => Promise<EnsureBrowserControlAuthResult>;
-};
 type EnsureBrowserControlAuthParams = {
   cfg: OpenClawConfig;
   env?: NodeJS.ProcessEnv;
@@ -21,6 +14,13 @@ type EnsureBrowserControlAuthParams = {
 type EnsureBrowserControlAuthResult = {
   auth: BrowserControlAuth;
   generatedToken?: string;
+};
+type BrowserControlAuthSurface = {
+  resolveBrowserControlAuth: (cfg?: OpenClawConfig, env?: NodeJS.ProcessEnv) => BrowserControlAuth;
+  shouldAutoGenerateBrowserAuth: (env: NodeJS.ProcessEnv) => boolean;
+  ensureBrowserControlAuth: (
+    params: EnsureBrowserControlAuthParams,
+  ) => Promise<EnsureBrowserControlAuthResult>;
 };
 
 export const ensureBrowserControlAuth: any = undefined as any;

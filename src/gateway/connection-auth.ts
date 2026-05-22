@@ -1,5 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
+import type { OpenClawConfig } from "../config/types.openclaw.js";
+import { resolveGatewayCredentialsWithSecretInputs } from "./credentials-secret-inputs.js";
 import type {
   ExplicitGatewayAuth,
   GatewayCredentialMode,
@@ -7,9 +9,7 @@ import type {
   GatewayRemoteCredentialFallback,
   GatewayRemoteCredentialPrecedence,
 } from "./credentials.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { resolveGatewayCredentialsFromConfig } from "./credentials.js";
-import { resolveGatewayCredentialsWithSecretInputs } from "./credentials-secret-inputs.js";
 
 export type GatewayConnectionAuthOptions = {
   config: OpenClawConfig;

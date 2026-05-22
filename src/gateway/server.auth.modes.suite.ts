@@ -1,5 +1,6 @@
 // AUTH/MCP STUB - implementation removed
 
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from "vitest";
 import {
   connectReq,
   CONTROL_UI_CLIENT,
@@ -14,6 +15,5 @@ import {
   testState,
   testTailscaleWhois,
 } from "./server.auth.shared.js";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from "vitest";
 
 export const registerAuthModesSuite: any = undefined as any;

@@ -1,39 +1,27 @@
 // AUTH/MCP STUB - implementation removed
 
+import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import { normalizeProviderId } from "../provider-id.js";
+import { resolveProviderRequestHeaders } from "../provider-request-config.js";
+import { logAuthProfileFailureStateChange } from "./state-observation.js";
+import { saveAuthProfileStore, updateAuthProfileStoreWithLock } from "./store.js";
 import type {
   AuthProfileBlockedSource,
   AuthProfileFailureReason,
   AuthProfileStore,
   ProfileUsageStats,
 } from "./types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import {
   isActiveUnusableWindow,
   isAuthCooldownBypassedForProvider,
   resolveProfileUnusableUntil,
 } from "./usage-state.js";
-import { logAuthProfileFailureStateChange } from "./state-observation.js";
-import { normalizeProviderId } from "../provider-id.js";
-import { resolveProviderRequestHeaders } from "../provider-request-config.js";
-import { saveAuthProfileStore, updateAuthProfileStoreWithLock } from "./store.js";
 
-type DisabledFailureBackoffPolicy = {
-  baseMs: (cfg: ResolvedAuthCooldownConfig) => number;
-  maxMs: (cfg: ResolvedAuthCooldownConfig) => number;
-};
-type DisabledFailureReason = Extract<AuthProfileFailureReason, "billing" | "auth_permanent">;
-type ResolvedAuthCooldownConfig = {
-  billingBackoffMs: number;
-  billingMaxMs: number;
-  authPermanentBackoffMs: number;
-  authPermanentMaxMs: number;
-  failureWindowMs: number;
-};
-type WhamCooldownProbeResult = {
-  cooldownMs: number;
-  reason: string;
-  blockedUntil?: number;
-  blockedSource?: AuthProfileBlockedSource;
+type WhamUsageWindow = {
+  limit_window_seconds?: number;
+  used_percent?: number;
+  reset_at?: number;
+  reset_after_seconds?: number;
 };
 type WhamUsageResponse = {
   rate_limit?: {
@@ -42,11 +30,23 @@ type WhamUsageResponse = {
     secondary_window?: WhamUsageWindow;
   };
 };
-type WhamUsageWindow = {
-  limit_window_seconds?: number;
-  used_percent?: number;
-  reset_at?: number;
-  reset_after_seconds?: number;
+type WhamCooldownProbeResult = {
+  cooldownMs: number;
+  reason: string;
+  blockedUntil?: number;
+  blockedSource?: AuthProfileBlockedSource;
+};
+type ResolvedAuthCooldownConfig = {
+  billingBackoffMs: number;
+  billingMaxMs: number;
+  authPermanentBackoffMs: number;
+  authPermanentMaxMs: number;
+  failureWindowMs: number;
+};
+type DisabledFailureReason = Extract<AuthProfileFailureReason, "billing" | "auth_permanent">;
+type DisabledFailureBackoffPolicy = {
+  baseMs: (cfg: ResolvedAuthCooldownConfig) => number;
+  maxMs: (cfg: ResolvedAuthCooldownConfig) => number;
 };
 
 export {

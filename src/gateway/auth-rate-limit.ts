@@ -2,28 +2,6 @@
 
 import { isLoopbackAddress, resolveClientIp } from "./net.js";
 
-export interface AuthRateLimiter {
-  /** Check whether `ip` is currently allowed to attempt authentication. */
-  check(ip: string | undefined, scope?: string): RateLimitCheckResult;
-  /** Record a failed authentication attempt for `ip`. */
-  recordFailure(ip: string | undefined, scope?: string): void;
-  /** Reset the rate-limit state for `ip` (e.g. after a successful login). */
-  reset(ip: string | undefined, scope?: string): void;
-  /** Return the current number of tracked IPs (useful for diagnostics). */
-  size(): number;
-  /** Remove expired entries and release memory. */
-  prune(): void;
-  /** Dispose the limiter and cancel periodic cleanup timers. */
-  dispose(): void;
-}
-export interface RateLimitCheckResult {
-  /** Whether the request is allowed to proceed. */
-  allowed: boolean;
-  /** Number of remaining attempts before the limit is reached. */
-  remaining: number;
-  /** Milliseconds until the lockout expires (0 when not locked). */
-  retryAfterMs: number;
-}
 export interface RateLimitConfig {
   /** Maximum failed attempts before blocking.  @default 10 */
   maxAttempts?: number;
@@ -42,11 +20,32 @@ interface RateLimitEntry {
   /** If set, requests from this IP are blocked until this epoch-ms instant. */
   lockedUntil?: number;
 }
+export interface RateLimitCheckResult {
+  /** Whether the request is allowed to proceed. */
+  allowed: boolean;
+  /** Number of remaining attempts before the limit is reached. */
+  remaining: number;
+  /** Milliseconds until the lockout expires (0 when not locked). */
+  retryAfterMs: number;
+}
+export interface AuthRateLimiter {
+  /** Check whether `ip` is currently allowed to attempt authentication. */
+  check(ip: string | undefined, scope?: string): RateLimitCheckResult;
+  /** Record a failed authentication attempt for `ip`. */
+  recordFailure(ip: string | undefined, scope?: string): void;
+  /** Reset the rate-limit state for `ip` (e.g. after a successful login). */
+  reset(ip: string | undefined, scope?: string): void;
+  /** Return the current number of tracked IPs (useful for diagnostics). */
+  size(): number;
+  /** Remove expired entries and release memory. */
+  prune(): void;
+  /** Dispose the limiter and cancel periodic cleanup timers. */
+  dispose(): void;
+}
 
-export const AUTH_RATE_LIMIT_SCOPE_DEFAULT = "default";
-export const AUTH_RATE_LIMIT_SCOPE_DEVICE_TOKEN = "device-token";
-export const AUTH_RATE_LIMIT_SCOPE_HOOK_AUTH = "hook-auth";
-export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET = "shared-secret";
-
+export const AUTH_RATE_LIMIT_SCOPE_DEFAULT: any = undefined as any;
+export const AUTH_RATE_LIMIT_SCOPE_DEVICE_TOKEN: any = undefined as any;
+export const AUTH_RATE_LIMIT_SCOPE_HOOK_AUTH: any = undefined as any;
+export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET: any = undefined as any;
 export const createAuthRateLimiter: any = undefined as any;
 export const normalizeRateLimitClientIp: any = undefined as any;

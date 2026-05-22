@@ -1,7 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { BundleMcpDiagnostic, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { BundleMcpDiagnostic, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import { loadMergedBundleMcpConfig } from "./bundle-mcp-config.js";
 
 type EmbeddedPiMcpConfig = {

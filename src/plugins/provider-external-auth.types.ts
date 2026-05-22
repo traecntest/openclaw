@@ -4,21 +4,6 @@ import type { AuthProfileStore, OAuthCredential } from "../agents/auth-profiles/
 import type { ModelProviderAuthMode, ModelProviderConfig } from "../config/types.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
-export type ProviderExternalAuthProfile = ProviderExternalOAuthProfile;
-export type ProviderExternalOAuthProfile = {
-  profileId: string;
-  credential: OAuthCredential;
-  persistence?: "runtime-only" | "persisted";
-};
-export type ProviderResolveExternalAuthProfilesContext =
-  ProviderResolveExternalOAuthProfilesContext;
-export type ProviderResolveExternalOAuthProfilesContext = {
-  config?: OpenClawConfig;
-  agentDir?: string;
-  workspaceDir?: string;
-  env: NodeJS.ProcessEnv;
-  store: AuthProfileStore;
-};
 export type ProviderResolveSyntheticAuthContext = {
   config?: OpenClawConfig;
   provider: string;
@@ -30,4 +15,19 @@ export type ProviderSyntheticAuthResult = {
   mode: Exclude<ModelProviderAuthMode, "aws-sdk">;
   expiresAt?: number;
 };
+export type ProviderResolveExternalOAuthProfilesContext = {
+  config?: OpenClawConfig;
+  agentDir?: string;
+  workspaceDir?: string;
+  env: NodeJS.ProcessEnv;
+  store: AuthProfileStore;
+};
+export type ProviderResolveExternalAuthProfilesContext =
+  ProviderResolveExternalOAuthProfilesContext;
+export type ProviderExternalOAuthProfile = {
+  profileId: string;
+  credential: OAuthCredential;
+  persistence?: "runtime-only" | "persisted";
+};
+export type ProviderExternalAuthProfile = ProviderExternalOAuthProfile;
 

@@ -1,5 +1,18 @@
 // AUTH/MCP STUB - implementation removed
 
+export type AuthProfileConfig = {
+  provider: string;
+  /**
+   * Auth route selected by this profile id.
+   * - api_key: static provider API key
+   * - oauth: refreshable OAuth credentials (access+refresh+expires)
+   * - token: static bearer-style token (optionally expiring; no refresh)
+   * - aws-sdk: AWS SDK default credential chain (no secret in auth-profiles.json)
+   */
+  mode: "api_key" | "aws-sdk" | "oauth" | "token";
+  email?: string;
+  displayName?: string;
+};
 export type AuthConfig = {
   profiles?: Record<string, AuthProfileConfig>;
   order?: Record<string, string[]>;
@@ -40,18 +53,5 @@ export type AuthConfig = {
      */
     rateLimitedProfileRotations?: number;
   };
-};
-export type AuthProfileConfig = {
-  provider: string;
-  /**
-   * Auth route selected by this profile id.
-   * - api_key: static provider API key
-   * - oauth: refreshable OAuth credentials (access+refresh+expires)
-   * - token: static bearer-style token (optionally expiring; no refresh)
-   * - aws-sdk: AWS SDK default credential chain (no secret in auth-profiles.json)
-   */
-  mode: "api_key" | "aws-sdk" | "oauth" | "token";
-  email?: string;
-  displayName?: string;
 };
 

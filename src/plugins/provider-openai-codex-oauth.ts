@@ -1,16 +1,16 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { OAuthPrompt } from "./provider-oauth-flow.js";
+import { loginOpenAICodex, type OAuthCredentials } from "@earendil-works/pi-ai/oauth";
+import { formatErrorMessage } from "../infra/errors.js";
+import { ensureGlobalUndiciEnvProxyDispatcher } from "../infra/net/undici-global-dispatcher.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
+import type { OAuthPrompt } from "./provider-oauth-flow.js";
+import { createVpsAwareOAuthHandlers } from "./provider-oauth-flow.js";
 import {
   formatOpenAIOAuthTlsPreflightFix,
   runOpenAIOAuthTlsPreflight,
 } from "./provider-openai-codex-oauth-tls.js";
-import { createVpsAwareOAuthHandlers } from "./provider-oauth-flow.js";
-import { ensureGlobalUndiciEnvProxyDispatcher } from "../infra/net/undici-global-dispatcher.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { loginOpenAICodex, type OAuthCredentials } from "@earendil-works/pi-ai/oauth";
 
 type OpenAICodexOAuthFailureCode =
   | "callback_timeout"

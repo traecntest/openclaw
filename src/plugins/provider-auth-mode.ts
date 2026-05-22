@@ -1,7 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { SecretInputMode } from "./provider-auth-types.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
+import type { SecretInputMode } from "./provider-auth-types.js";
 
 export type SecretInputModePromptCopy = {
   modeMessage?: string;

@@ -1,22 +1,12 @@
 // AUTH/MCP STUB - implementation removed
 
+import { z } from "zod";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString as toText,
 } from "../shared/string-coerce.js";
-import { z } from "zod";
 
-export type ApprovalDecision = "allow-once" | "allow-always" | "deny";
-export type ApprovalKind = "exec" | "plugin";
-export type ChatHistoryResult = {
-  messages?: Array<{ id?: string; role?: string; content?: unknown; [key: string]: unknown }>;
-};
 export type ClaudeChannelMode = "off" | "on" | "auto";
-export type ClaudePermissionRequest = {
-  toolName: string;
-  description: string;
-  inputPreview: string;
-};
 export type ConversationDescriptor = {
   sessionKey: string;
   channel: string;
@@ -28,46 +18,6 @@ export type ConversationDescriptor = {
   derivedTitle?: string;
   lastMessagePreview?: string;
   updatedAt?: number | null;
-};
-export type PendingApproval = {
-  kind: ApprovalKind;
-  id: string;
-  request?: Record<string, unknown>;
-  createdAtMs?: number;
-  expiresAtMs?: number;
-};
-export type QueueEvent =
-  | {
-      cursor: number;
-      type: "message";
-      sessionKey: string;
-      conversation?: ConversationDescriptor;
-      messageId?: string;
-      messageSeq?: number;
-      role?: string;
-      text?: string;
-      raw: SessionMessagePayload;
-    }
-export type SessionDescribeResult = {
-  session?: SessionRow | null;
-};
-export type SessionListResult = {
-  sessions?: SessionRow[];
-};
-export type SessionMessagePayload = {
-  sessionKey?: string;
-  messageId?: string;
-  messageSeq?: number;
-  message?: { role?: string; content?: unknown; [key: string]: unknown };
-  lastChannel?: string;
-  lastTo?: string;
-  lastAccountId?: string;
-  lastThreadId?: string | number;
-  [key: string]: unknown;
-};
-export type WaitFilter = {
-  afterCursor: number;
-  sessionKey?: string;
 };
 type SessionRow = {
   key: string;
@@ -92,6 +42,56 @@ type SessionRow = {
   derivedTitle?: string;
   lastMessagePreview?: string;
   updatedAt?: number | null;
+};
+export type SessionListResult = {
+  sessions?: SessionRow[];
+};
+export type SessionDescribeResult = {
+  session?: SessionRow | null;
+};
+export type ChatHistoryResult = {
+  messages?: Array<{ id?: string; role?: string; content?: unknown; [key: string]: unknown }>;
+};
+export type SessionMessagePayload = {
+  sessionKey?: string;
+  messageId?: string;
+  messageSeq?: number;
+  message?: { role?: string; content?: unknown; [key: string]: unknown };
+  lastChannel?: string;
+  lastTo?: string;
+  lastAccountId?: string;
+  lastThreadId?: string | number;
+  [key: string]: unknown;
+};
+export type ApprovalKind = "exec" | "plugin";
+export type ApprovalDecision = "allow-once" | "allow-always" | "deny";
+export type PendingApproval = {
+  kind: ApprovalKind;
+  id: string;
+  request?: Record<string, unknown>;
+  createdAtMs?: number;
+  expiresAtMs?: number;
+};
+export type QueueEvent =
+  | {
+      cursor: number;
+      type: "message";
+      sessionKey: string;
+      conversation?: ConversationDescriptor;
+      messageId?: string;
+      messageSeq?: number;
+      role?: string;
+      text?: string;
+      raw: SessionMessagePayload;
+    }
+export type ClaudePermissionRequest = {
+  toolName: string;
+  description: string;
+  inputPreview: string;
+};
+export type WaitFilter = {
+  afterCursor: number;
+  sessionKey?: string;
 };
 
 export { toText };

@@ -1,7 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { getChannelPlugin, resolveChannelApprovalCapability } from "../channels/plugins/index.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { isImplicitSameChatApprovalAuthorization } from "../plugin-sdk/approval-auth-helpers.js";
 import { normalizeMessageChannel } from "../utils/message-channel.js";
 

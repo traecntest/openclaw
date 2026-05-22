@@ -1,7 +1,8 @@
 // AUTH/MCP STUB - implementation removed
 
 import crypto from "node:crypto";
-import type { McpLoopbackTool, McpToolSchemaEntry } from "./mcp-http.schema.js";
+import { runBeforeToolCallHook, type HookContext } from "../agents/pi-tools.before-tool-call.js";
+import { formatErrorMessage } from "../infra/errors.js";
 import {
   MCP_LOOPBACK_SERVER_NAME,
   MCP_LOOPBACK_SERVER_VERSION,
@@ -10,8 +11,7 @@ import {
   jsonRpcResult,
   type JsonRpcRequest,
 } from "./mcp-http.protocol.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { runBeforeToolCallHook, type HookContext } from "../agents/pi-tools.before-tool-call.js";
+import type { McpLoopbackTool, McpToolSchemaEntry } from "./mcp-http.schema.js";
 
 type McpTextContent = {
   type: "text";

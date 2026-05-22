@@ -1,7 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { AuthProfileCredential, OAuthCredential } from "./types.js";
 import { coerceSecretRef, normalizeSecretInputString } from "../../config/types.secrets.js";
+import type { AuthProfileCredential, OAuthCredential } from "./types.js";
 
 export type AuthCredentialReasonCode =
   | "ok"

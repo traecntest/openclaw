@@ -1,10 +1,22 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { containsEnvVarReference } from "../config/env-substitution.js";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { hasConfiguredSecretInput, resolveSecretInputRef } from "../config/types.secrets.js";
 import { normalizeOptionalString } from "../shared/string-coerce.js";
 
+type GatewayCredentialInputPath =
+  | "gateway.auth.token"
+  | "gateway.auth.password"
+  | "gateway.remote.token"
+  | "gateway.remote.password";
+type GatewayConfiguredCredentialInput = {
+  path: GatewayCredentialInputPath;
+  configured: boolean;
+  value?: string;
+  refPath?: GatewayCredentialInputPath;
+  hasSecretRef: boolean;
+};
 export type GatewayCredentialPlan = {
   configuredMode: "local" | "remote";
   authMode?: string;
@@ -28,18 +40,6 @@ export type GatewayCredentialPlan = {
   remotePasswordFallbackActive: boolean;
   remotePasswordActive: boolean;
 };
-type GatewayConfiguredCredentialInput = {
-  path: GatewayCredentialInputPath;
-  configured: boolean;
-  value?: string;
-  refPath?: GatewayCredentialInputPath;
-  hasSecretRef: boolean;
-};
-type GatewayCredentialInputPath =
-  | "gateway.auth.token"
-  | "gateway.auth.password"
-  | "gateway.remote.token"
-  | "gateway.remote.password";
 type GatewaySecretDefaults = NonNullable<OpenClawConfig["secrets"]>["defaults"];
 
 export const createGatewayCredentialPlan: any = undefined as any;

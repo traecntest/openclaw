@@ -2,8 +2,8 @@
 
 import type { OpenClawConfig } from "../config/types.js";
 import { hasConfiguredSecretInput } from "../config/types.secrets.js";
-import { resolveConfiguredSecretInputString } from "./resolve-configured-secret-input-string.js";
 import { trimToUndefined, type ExplicitGatewayAuth } from "./credentials.js";
+import { resolveConfiguredSecretInputString } from "./resolve-configured-secret-input-string.js";
 
 type GatewayCredentialPath =
   | "gateway.auth.token"

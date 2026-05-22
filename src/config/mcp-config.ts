@@ -1,15 +1,16 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { OpenClawConfig } from "./types.openclaw.js";
+import { isRecord } from "../utils.js";
+import { readSourceConfigSnapshot } from "./io.js";
 import {
   canonicalizeConfiguredMcpServer,
   normalizeConfiguredMcpServers,
 } from "./mcp-config-normalize.js";
-import { isRecord } from "../utils.js";
-import { readSourceConfigSnapshot } from "./io.js";
 import { replaceConfigFile } from "./mutate.js";
+import type { OpenClawConfig } from "./types.openclaw.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
+type ConfigMcpServers = ReturnType<typeof normalizeConfiguredMcpServers>;
 type ConfigMcpReadResult =
   | {
       ok: true;
@@ -18,7 +19,6 @@ type ConfigMcpReadResult =
       mcpServers: ConfigMcpServers;
       baseHash?: string;
     }
-type ConfigMcpServers = ReturnType<typeof normalizeConfiguredMcpServers>;
 type ConfigMcpWriteResult =
   | {
       ok: true;

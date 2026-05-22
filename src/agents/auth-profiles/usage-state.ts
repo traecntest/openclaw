@@ -1,7 +1,7 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { AuthProfileStore, ProfileUsageStats } from "./types.js";
 import { normalizeProviderId } from "../provider-id.js";
+import type { AuthProfileStore, ProfileUsageStats } from "./types.js";
 
 export const clearExpiredCooldowns: any = undefined as any;
 export const getSoonestCooldownExpiry: any = undefined as any;

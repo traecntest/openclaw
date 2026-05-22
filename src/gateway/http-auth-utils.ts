@@ -1,22 +1,23 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { AuthRateLimiter } from "./auth-rate-limit.js";
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { getRuntimeConfig } from "../config/io.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
+import {
+  normalizeLowercaseStringOrEmpty,
+  normalizeOptionalString,
+} from "../shared/string-coerce.js";
+import type { AuthRateLimiter } from "./auth-rate-limit.js";
 import {
   authorizeHttpGatewayConnect,
   type GatewayAuthResult,
   type ResolvedGatewayAuth,
 } from "./auth.js";
-import {
-  normalizeLowercaseStringOrEmpty,
-  normalizeOptionalString,
-} from "../shared/string-coerce.js";
+import { sendGatewayAuthFailure, sendMissingScopeForbidden } from "./http-common.js";
 import { ADMIN_SCOPE, CLI_DEFAULT_OPERATOR_SCOPES } from "./method-scopes.js";
 import { authorizeOperatorScopesForMethod } from "./method-scopes.js";
-import { getRuntimeConfig } from "../config/io.js";
-import { sendGatewayAuthFailure, sendMissingScopeForbidden } from "./http-common.js";
 
+type SharedSecretGatewayAuth = Pick<ResolvedGatewayAuth, "mode">;
 export type AuthorizedGatewayHttpRequest = {
   authMethod?: GatewayAuthResult["method"];
   trustDeclaredOperatorScopes: boolean;
@@ -26,7 +27,6 @@ export type GatewayHttpRequestAuthCheckResult =
       ok: true;
       requestAuth: AuthorizedGatewayHttpRequest;
     }
-type SharedSecretGatewayAuth = Pick<ResolvedGatewayAuth, "mode">;
 
 export const authorizeGatewayHttpRequestOrReply: any = undefined as any;
 export const authorizeScopedGatewayHttpRequestOrReply: any = undefined as any;

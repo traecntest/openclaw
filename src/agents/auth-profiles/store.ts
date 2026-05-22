@@ -2,9 +2,25 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import type { AuthProfileStore } from "./types.js";
-import type { ExternalCliAuthDiscovery } from "./external-cli-discovery.js";
+import { isDeepStrictEqual } from "node:util";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import { withFileLock } from "../../infra/file-lock.js";
+import { loadJsonFile, saveJsonFile } from "../../infra/json-file.js";
+import { cloneAuthProfileStore } from "./clone.js";
+import { AUTH_STORE_LOCK_OPTIONS, AUTH_STORE_VERSION, log } from "./constants.js";
+import {
+  overlayExternalAuthProfiles,
+  shouldPersistExternalAuthProfile,
+  syncPersistedExternalCliAuthProfiles,
+} from "./external-auth.js";
+import type { ExternalCliAuthDiscovery } from "./external-cli-discovery.js";
+import { isSafeToAdoptMainStoreOAuthIdentity } from "./oauth-shared.js";
+import {
+  ensureAuthStoreFile,
+  resolveAuthStatePath,
+  resolveAuthStorePath,
+  resolveLegacyAuthStorePath,
+} from "./paths.js";
 import {
   applyLegacyAuthStore,
   buildPersistedAuthProfileSecretsStore,
@@ -16,40 +32,20 @@ import {
   mergeOAuthFileIntoStore,
 } from "./persisted.js";
 import {
-  clearLoadedAuthStoreCache,
-  readCachedAuthProfileStore,
-  writeCachedAuthProfileStore,
-} from "./store-cache.js";
-import {
   clearRuntimeAuthProfileStoreSnapshots as clearRuntimeAuthProfileStoreSnapshotsImpl,
   getRuntimeAuthProfileStoreSnapshot,
   hasRuntimeAuthProfileStoreSnapshot,
   replaceRuntimeAuthProfileStoreSnapshots as replaceRuntimeAuthProfileStoreSnapshotsImpl,
   setRuntimeAuthProfileStoreSnapshot,
 } from "./runtime-snapshots.js";
-import {
-  ensureAuthStoreFile,
-  resolveAuthStatePath,
-  resolveAuthStorePath,
-  resolveLegacyAuthStorePath,
-} from "./paths.js";
-import {
-  overlayExternalAuthProfiles,
-  shouldPersistExternalAuthProfile,
-  syncPersistedExternalCliAuthProfiles,
-} from "./external-auth.js";
-import { AUTH_STORE_LOCK_OPTIONS, AUTH_STORE_VERSION, log } from "./constants.js";
-import { cloneAuthProfileStore } from "./clone.js";
-import { isDeepStrictEqual } from "node:util";
-import { isSafeToAdoptMainStoreOAuthIdentity } from "./oauth-shared.js";
-import { loadJsonFile, saveJsonFile } from "../../infra/json-file.js";
 import { savePersistedAuthProfileState } from "./state.js";
-import { withFileLock } from "../../infra/file-lock.js";
+import {
+  clearLoadedAuthStoreCache,
+  readCachedAuthProfileStore,
+  writeCachedAuthProfileStore,
+} from "./store-cache.js";
+import type { AuthProfileStore } from "./types.js";
 
-type ExternalCliSyncResult = {
-  store: AuthProfileStore;
-  cacheable: boolean;
-};
 type LoadAuthProfileStoreOptions = {
   allowKeychainPrompt?: boolean;
   config?: OpenClawConfig;
@@ -60,20 +56,24 @@ type LoadAuthProfileStoreOptions = {
   externalCliProviderIds?: Iterable<string>;
   externalCliProfileIds?: Iterable<string>;
 };
+type SaveAuthProfileStoreOptions = {
+  filterExternalAuthProfiles?: boolean;
+  syncExternalCli?: boolean;
+};
 type ResolvedExternalCliOverlayOptions = {
   allowKeychainPrompt?: boolean;
   config?: OpenClawConfig;
   externalCliProviderIds?: Iterable<string>;
   externalCliProfileIds?: Iterable<string>;
 };
-type SaveAuthProfileStoreOptions = {
-  filterExternalAuthProfiles?: boolean;
-  syncExternalCli?: boolean;
-};
 type SyncLockSnapshot = {
   raw: string;
   stat: fs.Stats;
   payload: Record<string, unknown> | null;
+};
+type ExternalCliSyncResult = {
+  store: AuthProfileStore;
+  cacheable: boolean;
 };
 
 export { hasAnyAuthProfileStoreSource } from "./source-check.js";

@@ -1,14 +1,14 @@
 // AUTH/MCP STUB - implementation removed
 
+import { spawn, type ChildProcess } from "node:child_process";
 import process from "node:process";
-import type { JSONRPCMessage } from "@modelcontextprotocol/sdk/types.js";
-import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { PassThrough } from "node:stream";
-import { ReadBuffer, serializeMessage } from "@modelcontextprotocol/sdk/shared/stdio.js";
 import { getDefaultEnvironment } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { ReadBuffer, serializeMessage } from "@modelcontextprotocol/sdk/shared/stdio.js";
+import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
+import type { JSONRPCMessage } from "@modelcontextprotocol/sdk/types.js";
 import { killProcessTree } from "../process/kill-tree.js";
 import { prepareOomScoreAdjustedSpawn } from "../process/linux-oom-score.js";
-import { spawn, type ChildProcess } from "node:child_process";
 
 export type OpenClawStdioServerParameters = {
   command: string;

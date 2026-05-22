@@ -1,4 +1,4 @@
 // AUTH/MCP STUB - implementation removed
 
-export { resolvePreferredProviderForAuthChoice } from "./auth-choice.preferred-provider.js";
+export * from "../plugins/provider-auth-choice-preference.js";
 

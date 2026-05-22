@@ -1,12 +1,23 @@
 // AUTH/MCP STUB - implementation removed
 
 import * as childProcess from "node:child_process";
+import { createCipheriv, createDecipheriv, createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createCipheriv, createDecipheriv, createHash } from "node:crypto";
-import { loadJsonFile } from "../../infra/json-file.js";
 import { resolveOAuthDir, resolveStateDir } from "../../config/paths.js";
+import { loadJsonFile } from "../../infra/json-file.js";
+
+const LEGACY_OAUTH_REF_SOURCE = "openclaw-credentials";
+const LEGACY_OAUTH_REF_PROVIDER = "openai-codex";
+const LEGACY_OAUTH_SECRET_DIRNAME = "auth-profiles";
+const LEGACY_OAUTH_SECRET_VERSION = 1;
+const LEGACY_OAUTH_SECRET_ALGORITHM = "aes-256-gcm";
+const LEGACY_OAUTH_SECRET_KEY_ENV = "OPENCLAW_AUTH_PROFILE_SECRET_KEY";
+const LEGACY_OAUTH_SECRET_KEYCHAIN_SERVICE = "OpenClaw Auth Profile Secrets";
+const LEGACY_OAUTH_SECRET_KEYCHAIN_ACCOUNT = "oauth-profile-master-key";
+const LEGACY_OAUTH_SECRET_KEY_FILE_NAME = "auth-profile-secret-key";
+
 
 export type LegacyOAuthRef = {
   source: typeof LEGACY_OAUTH_REF_SOURCE;

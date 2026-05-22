@@ -1,16 +1,6 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { UsageProviderId, UsageWindow } from "../../infra/provider-usage.types.js";
-import {
-  ensureAuthProfileStore,
-  ensureAuthProfileStoreWithoutExternalProfiles,
-  externalCliDiscoveryForConfigStatus,
-  listProfilesForProvider,
-  removeProviderAuthProfilesWithLock,
-  resolvePersistedAuthProfileOwnerAgentDir,
-} from "../../agents/auth-profiles.js";
+import { resolveDefaultAgentDir } from "../../agents/agent-scope.js";
 import {
   type AuthHealthSummary,
   type AuthProfileHealthStatus,
@@ -19,17 +9,27 @@ import {
   buildAuthHealthSummary,
   formatRemainingShort,
 } from "../../agents/auth-health.js";
-import { ErrorCodes, errorShape } from "../protocol/index.js";
-import { PROVIDER_LABELS, resolveUsageProviderId } from "../../infra/provider-usage.shared.js";
-import { abortChatRunsForProvider, type ChatAbortOps } from "../chat-abort.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { formatForLog } from "../ws-log.js";
+import {
+  ensureAuthProfileStore,
+  ensureAuthProfileStoreWithoutExternalProfiles,
+  externalCliDiscoveryForConfigStatus,
+  listProfilesForProvider,
+  removeProviderAuthProfilesWithLock,
+  resolvePersistedAuthProfileOwnerAgentDir,
+} from "../../agents/auth-profiles.js";
+import { resolveProviderIdForAuth } from "../../agents/provider-auth-aliases.js";
+import { normalizeProviderId } from "../../agents/provider-id.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import { isSecretRef } from "../../config/types.secrets.js";
 import { loadProviderUsageSummary } from "../../infra/provider-usage.load.js";
-import { normalizeProviderId } from "../../agents/provider-id.js";
+import { PROVIDER_LABELS, resolveUsageProviderId } from "../../infra/provider-usage.shared.js";
+import type { UsageProviderId, UsageWindow } from "../../infra/provider-usage.types.js";
+import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { refreshActiveSecretsRuntimeSnapshot } from "../../secrets/runtime.js";
-import { resolveDefaultAgentDir } from "../../agents/agent-scope.js";
-import { resolveProviderIdForAuth } from "../../agents/provider-auth-aliases.js";
+import { abortChatRunsForProvider, type ChatAbortOps } from "../chat-abort.js";
+import { ErrorCodes, errorShape } from "../protocol/index.js";
+import { formatForLog } from "../ws-log.js";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.js";
 
 export type ModelAuthExpiry = {
   /** Absolute expiry timestamp, ms since epoch. */
@@ -38,11 +38,6 @@ export type ModelAuthExpiry = {
   remainingMs: number;
   /** Human-readable remaining time (e.g. "10d", "2h", "45m"). */
   label: string;
-};
-export type ModelAuthLogoutResult = {
-  provider: string;
-  removedProfiles: string[];
-  abortedRunIds: string[];
 };
 export type ModelAuthStatusProfile = {
   profileId: string;
@@ -65,6 +60,11 @@ export type ModelAuthStatusResult = {
   /** Snapshot build time, ms since epoch. 0 = never loaded (UI fallback sentinel). */
   ts: number;
   providers: ModelAuthStatusProvider[];
+};
+export type ModelAuthLogoutResult = {
+  provider: string;
+  removedProfiles: string[];
+  abortedRunIds: string[];
 };
 
 export const aggregateOAuthStatus: any = undefined as any;

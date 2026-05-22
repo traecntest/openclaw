@@ -1,13 +1,18 @@
 // AUTH/MCP STUB - implementation removed
 
-import type { AnyAgentTool } from "./tools/common.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { TSchema } from "typebox";
+import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { AnyAgentTool } from "./tools/common.js";
 
 export type BundleMcpToolRuntime = {
   tools: AnyAgentTool[];
   dispose: () => Promise<void>;
+};
+export type McpServerCatalog = {
+  serverName: string;
+  launchSummary: string;
+  toolCount: number;
 };
 export type McpCatalogTool = {
   serverName: string;
@@ -17,11 +22,6 @@ export type McpCatalogTool = {
   description?: string;
   inputSchema: TSchema;
   fallbackDescription: string;
-};
-export type McpServerCatalog = {
-  serverName: string;
-  launchSummary: string;
-  toolCount: number;
 };
 export type McpToolCatalog = {
   version: number;

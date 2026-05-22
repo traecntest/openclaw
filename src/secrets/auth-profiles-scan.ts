@@ -4,10 +4,10 @@ import { isNonEmptyString, isRecord } from "./shared.js";
 import { listAuthProfileSecretTargetEntries } from "./target-registry.js";
 
 export type AuthProfileCredentialType = "api_key" | "token";
-export type AuthProfileCredentialVisit =
-  | ApiKeyCredentialVisit
-  | TokenCredentialVisit
-  | OauthCredentialVisit;
+type AuthProfileFieldSpec = {
+  valueField: string;
+  refField: string;
+};
 type ApiKeyCredentialVisit = {
   kind: "api_key";
   profileId: string;
@@ -17,18 +17,6 @@ type ApiKeyCredentialVisit = {
   refField: string;
   value: unknown;
   refValue: unknown;
-};
-type AuthProfileFieldSpec = {
-  valueField: string;
-  refField: string;
-};
-type OauthCredentialVisit = {
-  kind: "oauth";
-  profileId: string;
-  provider: string;
-  profile: Record<string, unknown>;
-  hasAccess: boolean;
-  hasRefresh: boolean;
 };
 type TokenCredentialVisit = {
   kind: "token";
@@ -40,5 +28,17 @@ type TokenCredentialVisit = {
   value: unknown;
   refValue: unknown;
 };
+type OauthCredentialVisit = {
+  kind: "oauth";
+  profileId: string;
+  provider: string;
+  profile: Record<string, unknown>;
+  hasAccess: boolean;
+  hasRefresh: boolean;
+};
+export type AuthProfileCredentialVisit =
+  | ApiKeyCredentialVisit
+  | TokenCredentialVisit
+  | OauthCredentialVisit;
 
 export const getAuthProfileFieldSpec: any = undefined as any;

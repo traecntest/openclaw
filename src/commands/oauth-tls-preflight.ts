@@ -1,7 +1,4 @@
 // AUTH/MCP STUB - implementation removed
 
-type OAuthPrompt = {
-  message: string;
-  placeholder?: string;
-};
+export * from "../plugins/provider-openai-codex-oauth-tls.js";
 

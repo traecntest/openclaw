@@ -1,13 +1,13 @@
 // AUTH/MCP STUB - implementation removed
 
-import type {
-  ProviderAuthEvidence,
-  ProviderEnvVarLookupParams,
-} from "../secrets/provider-env-vars.js";
 import {
   listKnownProviderAuthEnvVarNames,
   resolveProviderAuthEvidence,
   resolveProviderAuthEnvVarCandidates,
+} from "../secrets/provider-env-vars.js";
+import type {
+  ProviderAuthEvidence,
+  ProviderEnvVarLookupParams,
 } from "../secrets/provider-env-vars.js";
 
 export const PROVIDER_ENV_API_KEY_CANDIDATES: any = undefined as any;

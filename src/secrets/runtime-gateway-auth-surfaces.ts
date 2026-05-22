@@ -1,8 +1,8 @@
 // AUTH/MCP STUB - implementation removed
 
 import type { OpenClawConfig } from "../config/types.openclaw.js";
-import type { SecretDefaults } from "./runtime-shared.js";
 import { createGatewayCredentialPlan } from "../gateway/credential-planner.js";
+import type { SecretDefaults } from "./runtime-shared.js";
 import { isRecord } from "./shared.js";
 
 export type GatewayAuthSurfacePath = (typeof GATEWAY_AUTH_SURFACE_PATHS)[number];
